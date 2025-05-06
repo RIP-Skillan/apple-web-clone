@@ -17,7 +17,7 @@ export const ModelView = ({ index, groupRef, gsapType, controlRef, setRotationSt
       
       {/* Ambient Light */}
       <ambientLight intensity={0.3} />
-      <PerspectiveCamera makeDefault position={[0,0,4]} fov={75}/>
+      <PerspectiveCamera makeDefault position={[0,0,4]} fov={50}/>
         <Lights/>
         <OrbitControls
           makeDefault
@@ -32,7 +32,7 @@ export const ModelView = ({ index, groupRef, gsapType, controlRef, setRotationSt
         <group ref={groupRef} name={`${index===1}? 'small' : 'large'`} position={[0,0,0]}>
         <Suspense fallback={<Loader/>}>
           <IPhone
-            scale={index===1?[15,15,15]:[17,17,17]}
+            scale={index===1?[14,14,14]:[16,16,16]}
             item={item}
             size={size}
           />

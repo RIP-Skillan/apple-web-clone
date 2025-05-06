@@ -8,10 +8,16 @@ function App() {
   return (
     <>
       <main className="bg-black">
+        {/* Bsic Setup */}
         <Navbar/>
         <Hero/>
         <Highlights/>
         <Model/>
+        {/* Ideas For Future Work:
+              -Features Page
+              -GamePlay Page ig
+              -Footer (contact, info, external links and stuff)
+        */}
       </main>
     </>
   )
