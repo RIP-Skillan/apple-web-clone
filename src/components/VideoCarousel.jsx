@@ -25,6 +25,11 @@ export const VideoCarousal = () => {
   const{isEnd, isLastVideo, startPlay, videoId, isPlaying} = video;
 
   useGSAP(() => {
+    gsap.to('#slider',{
+      transform: `translateX(${-100*videoId}%)`,
+      duration: 2
+    })
+
     gsap.to('#video',{
       scrollTrigger:{
         trigger: '#video',
@@ -91,7 +96,7 @@ export const VideoCarousal = () => {
       }
 
       const animUpdate = () => {
-        anim.progress(videoRef.current[videoId]/hightlightsSlides[videoId].videoDuration)
+        anim.progress(videoRef.current[videoId].currentTime/hightlightsSlides[videoId].videoDuration)
       }
 
 
@@ -105,7 +110,7 @@ export const VideoCarousal = () => {
 
   },[videoId, startPlay])
 
-  const handleProcess = (type) => {
+  const handleProcess = (type,i) => {
     switch(type){
       case 'video-end':
         setVideo((prevVideo) => ({
@@ -128,13 +133,14 @@ export const VideoCarousal = () => {
         }))
         break;
       case 'play':
+      case 'pause':
         setVideo((prevVideo) => ({
           ...prevVideo,
           isPlaying: !prevVideo.isPlaying
         }))
         break;
       default:
-        break;
+        return video;
     }
   }
 
@@ -152,7 +158,13 @@ export const VideoCarousal = () => {
                   playsInline={true} 
                   preload='auto' 
                   muted 
+                  className={`${list.id === 2 && 'translate-x-44'} pointer-events-none`}
                   ref={(el) => videoRef.current[i] = el}
+                  onEnded={() => 
+                    i!==3
+                      ?handleProcess('video-end',i)
+                      :handleProcess('video-last')
+                  }
                   onPlay={() => {
                     setVideo((prevVideo)=> ({
                       ...prevVideo,
